@@ -1,0 +1,126 @@
+/* R1 */
+QDialog {
+    background-image: url(:/images/background.png);
+}
+
+/* R2 ：设置QLabel的颜色和字体大小*/
+QLabel {
+    font: 9pt;
+    color: rgb(0, 0, 127);
+}
+
+/* R3 QComboBox:editable表示可编辑状态*/
+QComboBox:editable,
+QLineEdit,
+QListView {
+    color: rgb(127, 0, 63);
+    background-color: rgb(255, 255, 241);
+    selection-color: white;
+    selection-background-color: rgb(191, 31, 127);
+    /*使用border属性指定一个灰色、2像素宽的"凹槽"边框，也可以用border-width、border-style、border-color分别设置*/
+    border: 2px groove gray;
+    /*将选择器设置成圆角，这里的半径为10像素*/
+    border-radius: 10px;
+    /*为了保证窗口部件内容与边框的圆角不重合，这里指定了一个垂直方向2像素、水平方向4像素的内部填充区域*/
+    padding: 2px 4px;
+}
+
+/* R4 在R3里指定了一个填充区域，但是对于QListView，垂直方向的填充看起来不正确，所以在这里修正一下*/
+QListView {
+    padding: 5px 4px;
+}
+
+/* R5
+对于QPushButton的定制，我们将使用一种完全不同的方式。用一个准备好的图像作为背景，代替使用样式表规则绘制按钮的方法。
+同样，为了使按钮可以缩放，按钮的背景使用CSS的边界图（border image）机制定义。
+与background-image定义的背景图像不同，边界图被分割成3*3的小格，当填充窗口部件背景时，4个角保持不变，其它5个小格被拉伸或者平铺，填充可用空间。
+使用border-image属性可以指定各个边界图，它要求指定一个图像文件名和定义9个格子的四条"切线"。切线用其到上、右、下、左边缘的距离定义。
+button.png作为边界图，因为四条"切线"是统一的，所以只需要用"16"定义切线。
+当使用边界图时，必须显式地设置border-width属性。
+一般情况下，border-width应该与切线的位置一致；否则，为了与border-width相符合，角上的格子将被拉伸或缩短。
+
+R5定义的QPushButton用于所有的QPushButton按钮。
+QComboBox:!editable窗口部件不可编辑
+*/
+QComboBox:!editable,
+QPushButton {
+    color: white;
+    font: bold 10pt;
+    border-image: url(:/images/button.png) 16;
+    border-width: 16px;
+    padding: -16px 0px;
+    /*设置按钮的最小尺寸*/
+    min-height: 32px;
+    min-width: 60px;
+}
+
+/* R6
+而R6的QPushButton用于鼠标放在按钮上时的设置。
+QComboBox:!editable:hover将鼠标放在不可编辑的窗口部件上时
+QComboBox::drop-down:editable:hover将鼠标放在可编辑的组合框的下拉箭头上时
+*/
+QComboBox:!editable:hover,
+QComboBox::drop-down:editable:hover,
+QPushButton:hover {
+    border-image: url(:/images/button-hover.png) 16;
+}
+
+/* R7 当点击按钮时的效果*/
+QComboBox:!editable:on,
+QPushButton:pressed {
+    color: lightgray;
+    border-image: url(:/images/button-pressed.png) 16;
+    padding-top: -15px;
+    padding-bottom: -17px;
+}
+
+/* R8 */
+QComboBox::down-arrow {
+    image: url(:/images/down-arrow.png);
+}
+
+/* R9 */
+QComboBox::down-arrow:on {
+    top: 1px;
+}
+
+/* R10 */
+QComboBox * {
+    font: 9pt;
+}
+
+/* R11
+subcontrol-origin、subcontrol-position：设置下拉箭头的位置
+*/
+QComboBox::drop-down:!editable {
+    subcontrol-origin: padding;
+    subcontrol-position: center right;
+    width: 11px;
+    height: 6px;
+    background: none;
+}
+
+/* R12 */
+QComboBox:!editable {
+    padding-right: 15px;
+}
+
+/* R13 */
+QComboBox::drop-down:editable {
+    border-image: url(:/images/button.png) 16;
+    border-width: 10px;
+    subcontrol-origin: margin;
+    subcontrol-position: center right;
+    width: 7px;
+    height: 6px;
+}
+
+/* R14 */
+QComboBox::drop-down:editable:open {
+    border-image: url(:/images/button-pressed.png) 16;
+}
+
+/* R15 */
+QComboBox:editable {
+    margin-right: 29px;
+}
